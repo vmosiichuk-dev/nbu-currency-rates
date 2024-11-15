@@ -38,6 +38,7 @@ const mainTheme = createTheme({
 	breakpoints: {
 		values: {
 			xs: 0,
+			sm: 360,
 			md: 768,
 			lg: 1336,
 		},
@@ -72,38 +73,49 @@ const theme = createTheme({
 				},
 			},
 		},
+		MuiAppBar: {
+			styleOverrides: {
+				root: {
+					boxShadow: '0px 0px 12px 0px rgba(31, 5, 188, 0.1)',
+				},
+			},
+		},
 	},
 	typography: {
 		...mainTheme.typography,
 		fontFamily: 'Inter',
+		fontSize: '1rem',
 		button: {
 			textTransform: 'none',
 		},
 		documentTitle: {
 			fontWeight: 700,
-			fontSize: 40,
+			fontSize: '1.5rem',
+			[mainTheme.breakpoints.up('md')]: {
+				fontSize: '2rem',
+			},
 			[mainTheme.breakpoints.up('lg')]: {
-				fontSize: 80,
+				fontSize: '2.5rem',
 			},
 		},
 		title: {
 			fontWeight: 600,
-			fontSize: 20,
+			fontSize: '1.2rem',
 			[mainTheme.breakpoints.up('md')]: {
-				fontSize: 24,
+				fontSize: '1.4rem',
 			},
 			[mainTheme.breakpoints.up('lg')]: {
-				fontSize: 32,
+				fontSize: '1.65rem',
 			},
 		},
 		subtitle: {
-			fontWeight: 500,
-			fontSize: 18,
+			fontWeight: 600,
+			fontSize: '1rem',
 			[mainTheme.breakpoints.up('md')]: {
-				fontSize: 20,
+				fontSize: '1.2rem',
 			},
 			[mainTheme.breakpoints.up('lg')]: {
-				fontSize: 24,
+				fontSize: '1.35rem',
 			},
 		},
 		body: {

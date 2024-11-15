@@ -1,9 +1,9 @@
-# NBU Currency Rates — React Application
+# NBU Currency Rates
 
 - [x] Initial Project Setup
+- [x] Header Component with Navigation
 - [ ] Home Page + API Integration
 - [ ] State Management Setup
-- [ ] Component
 - [ ] Search Page with Date Filter
 - [ ] Custom Rates Page
 - [ ] Individual Currency Edit Page
