@@ -1,8 +1,12 @@
-# React + Vite
+# NBU Currency Rates — React Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [x] Initial Project Setup
+- [ ] Home Page + API Integration
+- [ ] State Management Setup
+- [ ] Component
+- [ ] Search Page with Date Filter
+- [ ] Custom Rates Page
+- [ ] Individual Currency Edit Page
+- [ ] Handling Loading, Error, and Empty States
+- [ ] Styling and UI Design
+- [ ] Testing and Final Adjustments
