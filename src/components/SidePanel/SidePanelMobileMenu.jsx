@@ -1,10 +1,10 @@
 import { useState } from 'react';
+import { SidePanelLink } from './SidePanelLink.jsx'
 import { Stack, IconButton, Menu, MenuItem } from '@mui/material';
-import { HeaderLink } from './HeaderLink.jsx'
 import { HEADER_LINKS } from '@constants/links.js';
 import MenuIcon from '@mui/icons-material/Menu';
 
-export const HeaderMobileMenu = () => {
+export const SidePanelMobileMenu = () => {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const handleOpenNavMenu = (e) => setAnchorEl(e.currentTarget);
 	const handleCloseNavMenu = () => setAnchorEl(null);
@@ -38,14 +38,14 @@ export const HeaderMobileMenu = () => {
 				}}
 				open={Boolean(anchorEl)}
 				onClose={handleCloseNavMenu}
-				sx={{ display: { xs: 'block', md: 'none' } }}
 			>
 				{Object.values(HEADER_LINKS).map((link) => (
 					<MenuItem
-						key={`${link.href}-menu-item`}
+						key={link.key}
 						onClick={handleCloseNavMenu}
+						sx={{ justifyContent: 'center' }}
 					>
-						<HeaderLink link={link} />
+						<SidePanelLink link={link} variant="subtitle" />
 					</MenuItem>
 				))}
 			</Menu>

@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		"baseUrl": "./src",
 		"paths": {
+			"@api/*": ["api/*"],
 			"@assets/*": ["assets/*"],
 			"@components/*": ["components/*"],
 			"@constants/*": ["constants/*"],
@@ -9,7 +10,8 @@
 			"@layouts/*": ["layouts/*"],
 			"@pages/*": ["pages/*"],
 			"@routes/*": ["routes/*"],
-			"@theme/*": ["theme/*"]
+			"@theme/*": ["theme/*"],
+			"@utils/*": ["utils/*"]
 		}
 	},
 	"include": ["src/**/*"]

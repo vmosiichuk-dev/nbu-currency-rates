@@ -2,11 +2,14 @@
 
 - [x] Initial Project Setup
 - [x] Header Component with Navigation
-- [ ] Home Page + API Integration
-- [ ] State Management Setup
-- [ ] Search Page with Date Filter
-- [ ] Custom Rates Page
+- [x] Home Page + API Integration
+- [x] Shaping Applications UI Concept
+- [x] Extra API Integration for Country Flags
+- [x] Handling Loading and Empty States
+- [x] Pagination Logic
+- [x] Search Page with Date Filter
+- [x] State Management Setup (searchParams)
 - [ ] Individual Currency Edit Page
-- [ ] Handling Loading, Error, and Empty States
-- [ ] Styling and UI Design
+- [ ] Custom Rates Page
+- [ ] Handling Error States
 - [ ] Testing and Final Adjustments

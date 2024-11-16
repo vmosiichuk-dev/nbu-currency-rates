@@ -1,23 +1,36 @@
 import { node } from 'prop-types';
 import { useBreakpoints } from '@hooks/useBreakpoints.jsx';
-import { Stack, Container } from '@mui/material';
-import { Header } from '@components/Header/Header.jsx';
+import { SidePanel } from '@components/SidePanel/SidePanel.jsx';
+import { Box, Stack } from '@mui/material';
 
 export const MainLayout = ({ children }) => {
-	const { isMediaSM } = useBreakpoints();
+	const { isMediaMD } = useBreakpoints();
+	const columnA = `minmax(${isMediaMD ? 240 : 80}px, 350px)`;
+	const columnB = 'minmax(720px, 1fr)';
 
 	return (
-		<Stack spacing={2} sx={{minHeight: '100dvh'}}>
-			<Header/>
-			<Container
-				maxWidth="xl"
-				sx={{px: isMediaSM ? '24px' : 'auto'}}
+		<Box
+			spacing={2}
+			sx={{
+				display: 'grid',
+				minHeight: '100dvh',
+				gridTemplateColumns: { xs: 'auto', md: `${columnA} ${columnB}` },
+				gridTemplateRows: { xs: 'auto', md: '80px 1fr' },
+			}}
+		>
+			<SidePanel/>
+			<Stack
+				component="main"
+				sx={{
+					flex: 1,
+					mt: 0,
+					alignItems: 'flex-end',
+					height: { xs: 'calc(100dvh - 80px)', md: '100dvh' },
+				}}
 			>
-				<Stack component="main" sx={{flex: 1}}>
-					{children}
-				</Stack>
-			</Container>
-		</Stack>
+				{ children }
+			</Stack>
+		</Box>
 	);
 };
 
