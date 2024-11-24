@@ -4,6 +4,7 @@ import { HomePage } from '@pages/HomePage.jsx';
 import { SearchPage } from '@pages/SearchPage.jsx';
 import { CustomRatesPage } from '@pages/CustomRatesPage.jsx';
 import { CurrencyEditPage } from '@pages/CurrencyEditPage.jsx';
+import { CurrencyPage } from '@pages/CurrencyPage.jsx';
 
 export const routes = [
 	{
@@ -29,6 +30,10 @@ export const routes = [
 			{
 				path: 'currency-edit',
 				element: <CurrencyEditPage />,
+			},
+			{
+				path: 'currency/:currencyCode',
+				element: <CurrencyPage />,
 			},
 		],
 	},

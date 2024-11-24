@@ -1,75 +1,48 @@
 import { shape, string } from 'prop-types';
-import { useRef } from 'react';
 import { useBreakpoints } from '@hooks/useBreakpoints.jsx';
-import { useTheme, Link, Stack, Typography } from '@mui/material';
+import { Link, Typography } from '@mui/material';
 import { useLocation, Link as RouterLink } from 'react-router-dom';
+import { usePalette } from '@hooks/usePalette.jsx';
 
 export const SidePanelLink = ({ link }) => {
-	const theme = useTheme();
-	const location = useLocation();
-	const { isMediaMD } = useBreakpoints()
-
 	const LinkIcon = link.icon;
+	const { isMediaLG } = useBreakpoints()
+	const { navyMain } = usePalette();
+
+	const location = useLocation();
 	const isActive = location.pathname === link.href;
-
-	const logoRef = useRef(null);
-	const textRef = useRef(null);
-
-	const handleMouseEnter = () => {
-		if (isActive) return;
-		const color = isMediaMD ? 'navy' : 'green';
-		logoRef.current.style.opacity = 1;
-		textRef.current.style.color = theme.palette[color].dark;
-	};
-
-	const handleMouseLeave = () => {
-		if (isActive) return;
-		const colorVariant = isMediaMD ? 'dark' : 'light';
-		logoRef.current.style.opacity = 0.3;
-		textRef.current.style.color = theme.palette.green[colorVariant];
-	};
 
 	return (
 		<Link
-			onMouseEnter={handleMouseEnter}
-			onMouseLeave={handleMouseLeave}
 			component={RouterLink}
 			to={link.href}
-			sx={(theme) => ({
+			sx={{
 				display: 'flex',
 				alignItems: 'center',
 				flexDirection: 'column',
-				justifyContent: { xs: 'center', md: 'flex-start' },
+				justifyContent: { xs: 'center', lg: 'flex-start' },
 				cursor: 'pointer',
 				textDecoration: 'none',
-				color: theme.palette.green.dark,
-			})}
+				transition: 'opacity 0.2s ease-in-out',
+				opacity: isActive ? 1 : 0.3,
+				color: navyMain,
+				'&:hover': {
+					opacity: 1,
+				},
+			}}
 		>
-			<Stack
-				ref={logoRef}
-				sx={{
-					opacity: isActive ? 1 : 0.3,
-					transition: 'opacity 0.2s ease-in-out',
+			<LinkIcon
+				alt="logo"
+				style={{
+					width: isMediaLG ? '100px' : '65px',
+					height: 'auto',
 				}}
-			>
-				<LinkIcon
-					alt="logo"
-					style={{
-						width: isMediaMD ? '100px' : '65px',
-						height: 'auto',
-					}}
-				/>
-			</Stack>
+			/>
 			<Typography
-				ref={textRef}
 				align="center"
 				variant="menuTitle"
-				sx={(theme) => ({
-					color: isActive
-						? theme.palette[isMediaMD ? 'navy' : 'green'].dark
-						: theme.palette.green[isMediaMD ? 'dark' : 'light'],
-					transition: 'color 0.2s ease-in-out',
-				})}
+				color="inherit"
+				sx={{ maxWidth: '180px' }}
 			>
 				{link.title}
 			</Typography>

@@ -1,67 +1,79 @@
 import dayjs from 'dayjs';
+import 'dayjs/locale/uk';
 import * as Yup from 'yup';
-import { Stack } from '@mui/material';
-import { Form, Formik } from 'formik';
-import { SearchDatePicker } from '@components/SearchDatePicker/SearchDatePicker.jsx';
+import { useEffect } from 'react';
+import { useBreakpoints } from '@hooks/useBreakpoints.jsx';
 import { useDateSearchParams } from '@hooks/useDateSearchParams.jsx';
+import { capitalize } from '@utils/capitalize.js';
+
+import { Form, Formik } from 'formik';
+import { Stack } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { RateTable } from '@components/RateTable/RateTable.jsx'
+
+import { SearchDatePicker } from '@components/SearchDatePicker/SearchDatePicker.jsx';
+import { TablePlaceholder } from '@components/TablePlaceholder/TablePlaceholder.jsx';
+import { RateTable } from '@components/RateTable/RateTable.jsx';
 
 export const SearchPage = () => {
-	const { date, ratesPending, updateDate } = useDateSearchParams();
+	const { isMediaSM } = useBreakpoints();
+	const { date, ratesPending, updateDate, isInvalidDate } = useDateSearchParams();
+
+	const validationSchema = Yup.object().shape({
+		date: Yup.date().nullable(),
+	});
+
+	const modifyUaDayjsLocale = () => {
+		const modifiedLocale = dayjs.Ls['uk'];
+		const initialLocaleMonths = modifiedLocale.months;
+
+		modifiedLocale.months = (i) => capitalize(initialLocaleMonths(i));
+		modifiedLocale.monthsShort = modifiedLocale.monthsShort.map(capitalize);
+		modifiedLocale.weekdaysMin = modifiedLocale.weekdaysMin.map(capitalize);
+
+		dayjs.Ls['uk'] = modifiedLocale;
+	};
+
+	useEffect(() => {
+		modifyUaDayjsLocale();
+	}, []);
 
 	return (
 		<>
 			<Stack
-				alignItems="flex-end"
-				sx={{
-					height: '100%',
-					m: '0 auto',
-				}}
+				alignItems={`flex-${isMediaSM ? 'start' : 'end'}`}
+				sx={{ m: '0 auto', height: '100%' }}
 			>
 				<Formik
 					initialValues={{ date }}
-					validationSchema={
-						Yup.object().shape({
-							date: Yup.date().nullable(),
-						})
-					}
-					onSubmit={(values, actions) => {
-						console.log(values, actions);
-					}}
+					validationSchema={validationSchema}
+					onSubmit={(_, { setSubmitting }) => setSubmitting(true)}
 				>
-					{(formikProps) => (
+					{({ isSubmitting }) => (
 						<Form style={{ width: '100%' }}>
 							<Stack
-								direction="row"
-								spacing={{ xs: 2, md: 3 }}
-								alignItems={{ md: 'center' }}
-								justifyContent="center"
 								sx={{
-									mt: { xs: 3, md: 5 },
-									mb: { xs: 0, md: 3 },
 									px: 3,
 									height: '40px',
+									width: isMediaSM ? '100%' : '340px',
+									margin: '32px auto -32px',
 								}}
 							>
 								<LocalizationProvider
 									dateAdapter={AdapterDayjs}
-									adapterLocale={'uk'}
+									adapterLocale={dayjs.locale('uk')}
 								>
 									<Stack
-										spacing={{ xs: 2, md: 3 }}
-										direction={{ md: 'row' }}
+										spacing={{ xs: 2, lg: 3 }}
+										direction={{ lg: 'row' }}
 									>
 										<SearchDatePicker
 											disableFuture
 											name="date"
 											value={dayjs(date)}
-											disabled={formikProps.isSubmitting || ratesPending}
-											onChange={(date) => {
-												formikProps.setFieldValue(name, date);
-												updateDate(date);
-											}}
+											isInvalidDate={isInvalidDate}
+											disabled={isSubmitting || ratesPending}
+											onChange={(date) => updateDate(date)}
 										/>
 									</Stack>
 								</LocalizationProvider>
@@ -69,8 +81,15 @@ export const SearchPage = () => {
 						</Form>
 					)}
 				</Formik>
-
-				<RateTable />
+				{isInvalidDate ? (
+					<TablePlaceholder
+						type="error"
+						textFirstLine="Неправильний формат дати"
+						textSecondLine="Оберіть дату ще раз"
+					/>
+				) : (
+					<RateTable />
+				)}
 			</Stack>
 		</>
 	);

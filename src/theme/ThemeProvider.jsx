@@ -2,45 +2,49 @@ import { node } from 'prop-types';
 import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider as Provider } from '@mui/material/styles';
 
+import { overrideCalendarStyles } from '@theme/overrideCalendarStyles.js';
+import { overrideInputStyles } from "@theme/overrideInputStyles.js";
+
 const mainTheme = createTheme({
 	...createTheme(),
 	palette: {
-		green: {
-			main: '#1dc690',
-			dark: '#158d63',
-			light: '#6bc8a5',
-		},
-		blue: {
-			main: '#278ab0',
-			dark: '#1b607c',
-			light: '#6bb8d4',
-		},
-		navy: {
-			main: '#1c4670',
-			dark: '#102c47',
-			light: '#7e9fba',
-		},
-		black: {
-			main: '#010113ff',
-			200: '#eaeae0',
-			100: '#f8f8f5',
-		},
-		white: {
-			main: '#ffffff',
-		},
-		error: {
-			main: '#ff004d',
-		},
-		success: {
-			main: '#17c614',
+		custom: {
+			green: {
+				main: '#1dc690',
+				dark: '#158d63',
+				light: '#0ea295',
+			},
+			navy: {
+				main: '#102c47',
+				light: '#5f9ea0',
+				shadow: 'rgba(31, 5, 188, 0.1)',
+			},
+			black: {
+				main: '#010113ff',
+				300: '#757572',
+				200: '#a4a49d',
+				100: '#d9d4d4',
+				50: '#eaeae0',
+			},
+			white: {
+				main: '#ffffff',
+			},
+			error: {
+				main: '#ff004d',
+				light: 'rgba(246,37,37,0.81)',
+			},
+			success: {
+				main: '#17c614',
+			},
 		},
 	},
 	breakpoints: {
 		values: {
 			xs: 0,
 			sm: 360,
-			md: 950,
-			lg: 1440,
+			md: 705,
+			lg: 960,
+			xl: 1920,
 		},
 	},
 });
@@ -64,6 +68,9 @@ const theme = createTheme({
 			`,
 		},
 		MuiTypography: {
+			root: {
+				fontFamily: `'Inter', system-ui, Helvetica, Arial, sans-serif`,
+			},
 			defaultProps: {
 				variantMapping: {
 					documentTitle: 'h1',
@@ -73,7 +80,6 @@ const theme = createTheme({
 					menuTitleMobile: 'p',
 					tableCell: 'p',
 					tableCellBold: 'p',
-					body: 'p',
 				},
 			},
 		},
@@ -87,64 +93,62 @@ const theme = createTheme({
 		MuiTableCell: {
 			styleOverrides: {
 				root: {
+					padding: '16px 4px',
 					fontFamily: '"Inter", sans-serif',
 					lineHeight: 1,
+					'&.MuiTableCell-alignRight': {
+						padding: '16px 16px 16px 0',
+					},
 				},
 			},
 		},
+		...overrideCalendarStyles(mainTheme),
+		...overrideInputStyles(mainTheme),
 	},
 	typography: {
 		...mainTheme.typography,
-		fontFamily: '"Inter", sans-serif',
 		fontSize: 16,
-		button: {
-			textTransform: 'none',
-		},
 		documentTitle: {
 			fontWeight: 700,
 			fontSize: 24,
-			[mainTheme.breakpoints.up('md')]: {
+			[mainTheme.breakpoints.up('lg')]: {
 				fontSize: 32,
 			},
 		},
 		menuTitle: {
 			fontWeight: 700,
 			fontSize: 20,
-			[mainTheme.breakpoints.up('md')]: {
+			[mainTheme.breakpoints.up('lg')]: {
 				fontSize: 26,
 			},
 		},
 		title: {
 			fontWeight: 600,
 			fontSize: 20,
-			[mainTheme.breakpoints.up('md')]: {
+			[mainTheme.breakpoints.up('lg')]: {
 				fontSize: 24,
 			},
 		},
 		subtitle: {
 			fontWeight: 600,
 			fontSize: 18,
-			[mainTheme.breakpoints.up('md')]: {
+			[mainTheme.breakpoints.up('lg')]: {
 				fontSize: 22,
 			},
 		},
 		tableCell: {
 			fontWeight: 400,
 			fontSize: 15,
-			[mainTheme.breakpoints.up('md')]: {
+			[mainTheme.breakpoints.up('lg')]: {
 				fontSize: 17,
 			},
 		},
 		tableCellBold: {
 			fontWeight: 600,
 			fontSize: 15,
-			[mainTheme.breakpoints.up('md')]: {
+			[mainTheme.breakpoints.up('lg')]: {
 				fontSize: 17,
 			},
-		},
-		body: {
-			fontWeight: 400,
-			fontSize: 16,
 		},
 	},
 });

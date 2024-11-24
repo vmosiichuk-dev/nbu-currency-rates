@@ -6,7 +6,7 @@ export const HomePage = () => (
 		<Stack
 			alignItems="flex-end"
 			direction="row"
-			sx={{ height: '100%', m: '0 auto' }}
+			sx={{ height: '100%', m: '0 auto', pt: '40px' }}
 		>
 			<RateTable />
 		</Stack>

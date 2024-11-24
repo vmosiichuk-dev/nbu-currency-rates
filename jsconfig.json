@@ -10,6 +10,7 @@
 			"@layouts/*": ["layouts/*"],
 			"@pages/*": ["pages/*"],
 			"@routes/*": ["routes/*"],
+			"@store/*": ["store/*"],
 			"@theme/*": ["theme/*"],
 			"@utils/*": ["utils/*"]
 		}
