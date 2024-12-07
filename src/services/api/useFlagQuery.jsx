@@ -29,7 +29,7 @@ export const useFlagQuery = (currencyCode) => {
 			data?.[countryIndex]?.flags?.png ?? null,
 		flagPending:
 			isPending && !CURRENCY_TO_SKIP.includes(currencyCode),
-		currencyCodeSymbol:
+		currencySymbol:
 			data?.[countryIndex]?.currencies?.[currencyCode]?.symbol ?? null,
 	};
 };

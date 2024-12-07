@@ -32,21 +32,25 @@ export const SidePanel = () => {
 						alignItems: 'center',
 						minHeight: { xs: '80px' },
 						flexDirection: { xs: 'row', lg: 'column' },
+						justifyContent: isMediaSM ? 'flex-end' : 'initial',
 					}}
 				>
-					{!isMediaSM ? (
-						<Stack
-							direction={isMediaLG ? 'column' : 'row'}
-							alignItems="center"
-							sx={{
-								flexGrow: 1,
-								mt: { lg: 3 },
-								mb: { lg: 9 },
-							}}
+					<Stack
+						direction={isMediaLG ? 'column' : 'row'}
+						alignItems="center"
+						sx={{
+							flexGrow: 1,
+							mt: { lg: 3 },
+							mb: { lg: 9 },
+						}}
+					>
+						<Typography
+							variant="documentTitle"
+							sx={{ whiteSpace: 'nowrap' }}
 						>
-							<Typography variant="documentTitle">
-								{`Курси НБУ`}
-							</Typography>
+							Курси НБУ
+						</Typography>
+						{!isMediaSM ? (
 							<Typography
 								align="center"
 								variant="title"
@@ -54,8 +58,8 @@ export const SidePanel = () => {
 							>
 								{displayDate}
 							</Typography>
-						</Stack>
-					) : null}
+						) : null}
+					</Stack>
 					{isMediaLG ? (
 						<Stack
 							justifyContent="flex-end"

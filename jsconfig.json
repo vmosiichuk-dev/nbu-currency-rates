@@ -2,16 +2,19 @@
 	"compilerOptions": {
 		"baseUrl": "./src",
 		"paths": {
-			"@api/*": ["api/*"],
+			"@api/*": ["services/api/*"],
 			"@assets/*": ["assets/*"],
 			"@components/*": ["components/*"],
 			"@constants/*": ["constants/*"],
+			"@email/*": ["services/email/*"],
 			"@hooks/*": ["hooks/*"],
 			"@layouts/*": ["layouts/*"],
 			"@pages/*": ["pages/*"],
 			"@routes/*": ["routes/*"],
+			"@slices/*": ["store/slices/*"],
 			"@store/*": ["store/*"],
 			"@theme/*": ["theme/*"],
+			"@UI/*": ["components/UI/*"],
 			"@utils/*": ["utils/*"]
 		}
 	},

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useRatesQuery } from '@api/queries/useRatesQuery.jsx';
+import { useRatesQuery } from '@api/useRatesQuery.jsx';
 import { useSearchParams } from 'react-router-dom';
 import { isValidApiDate } from '@utils/isValidApiDate.js';
 

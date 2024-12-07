@@ -1,16 +1,28 @@
-import { shape, string, number } from 'prop-types';
-import { usePalette } from '@hooks/usePalette.jsx';
-import { useBreakpoints } from '@hooks/useBreakpoints.jsx';
-import { TableRow, TableCell, TableContainer, Stack, Typography } from '@mui/material';
-import { Flag } from '@components/Flag/Flag.jsx';
+import { shape, string, number, bool } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { usePalette } from '@hooks/usePalette.jsx';
+import { useFlagQuery } from '@api/useFlagQuery.jsx';
+import { useBreakpoints } from '@hooks/useBreakpoints.jsx';
 
-export const RateTableItem = ({ rate, todayRate, rateDifference, isSearch }) => {
+import { TableRow, TableCell, TableContainer, Stack, Typography } from '@mui/material';
+import { HigherLowerToggle } from "@UI/HigherLowerToggle/HigherLowerToggle.jsx";
+import { FlagIcon } from '@UI/FlagIcon/FlagIcon.jsx';
+
+export const RateTableItem = ({ rate, todayRate, rateDifference, hideExtraColumns = false }) => {
 	const navigate = useNavigate();
-	const { black300 } = usePalette();
+	const { flag, flagPending } = useFlagQuery(rate?.cc);
 	const { isMediaLG, isMediaSM } = useBreakpoints();
+	const { black300, successMain, errorMain } = usePalette();
 
-	const showFullName = isMediaLG || !isSearch || (isSearch && !todayRate);
+	console.log(rate?.notifyOnHigherRate
+		? successMain
+		: errorMain)
+
+	const customRateDifference = rate?.rate - rate?.customRate;
+
+	const showFullName = isMediaLG ||
+		(!isMediaSM && hideExtraColumns) ||
+		(!hideExtraColumns && !(todayRate || rate?.customRate));
 
 	const setColorBasedOnRateDifference = (rateDifference) => {
 		let color = 'black';
@@ -28,6 +40,8 @@ export const RateTableItem = ({ rate, todayRate, rateDifference, isSearch }) => 
 			return diff.toPrecision(3);
 		}
 	};
+
+	console.log('---', rate?.notifyOnHigherRate);
 
 	return (
 		<TableRow
@@ -54,7 +68,11 @@ export const RateTableItem = ({ rate, todayRate, rateDifference, isSearch }) => 
 						justifyContent="center"
 						sx={{ mr: 2, width: 'auto', overflowY: 'hidden' }}
 					>
-						<Flag currencyCode={rate?.cc} />
+						<FlagIcon
+							flagPending={flagPending}
+							flag={flag}
+							currencyCode={rate?.cc}
+						/>
 						<Typography variant="tableCellBold">
 							{rate?.cc}
 						</Typography>
@@ -66,7 +84,7 @@ export const RateTableItem = ({ rate, todayRate, rateDifference, isSearch }) => 
 					) : null}
 				</TableContainer>
 			</TableCell>
-			{isSearch && todayRate && !isMediaSM ? (
+			{!hideExtraColumns && !isMediaSM && (todayRate || rate?.customRate) ? (
 				<>
 					<TableCell sx={{ minWidth: { lg: '117px' } }}>
 						<Typography
@@ -74,23 +92,30 @@ export const RateTableItem = ({ rate, todayRate, rateDifference, isSearch }) => 
 							variant="tableCell"
 							sx={{ color: black300 }}
 						>
-							{todayRate}
+							{todayRate || rate?.rate}
 						</Typography>
 					</TableCell>
 					<TableCell sx={{ minWidth: { lg: '117px' } }}>
 						<Typography
 							align="center"
 							variant="tableCell"
-							color={`${setColorBasedOnRateDifference(rateDifference)}.main`}
+							color={`${setColorBasedOnRateDifference(
+									rateDifference || customRateDifference
+							)}.main`}
 						>
-							{formatDifference(rateDifference)}
+							{rate?.customRate ? (
+								<HigherLowerToggle
+									currencyCode={rate?.cc}
+									notifyOnHigherRate={rate?.notifyOnHigherRate ?? true}
+								/>
+							) : formatDifference(rateDifference)}
 						</Typography>
 					</TableCell>
 				</>
 			) : null}
 			<TableCell align="right" sx={{ minWidth: { lg: '117px' } }}>
 				<Typography variant="tableCell">
-					{rate?.rate}
+					{rate?.customRate || rate?.rate}
 				</Typography>
 			</TableCell>
 		</TableRow>
@@ -105,4 +130,5 @@ RateTableItem.propTypes = {
 	}),
 	todayRate: number,
 	rateDifference: number,
+	hideExtraColumns: bool,
 };

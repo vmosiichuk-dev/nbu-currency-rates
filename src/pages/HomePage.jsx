@@ -8,7 +8,7 @@ export const HomePage = () => (
 			direction="row"
 			sx={{ height: '100%', m: '0 auto', pt: '40px' }}
 		>
-			<RateTable />
+			<RateTable hideExtraColumns/>
 		</Stack>
 	</>
 );

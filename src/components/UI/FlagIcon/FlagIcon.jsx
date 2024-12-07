@@ -1,12 +1,15 @@
 import { string, bool } from 'prop-types';
 import { Box, Stack, Skeleton } from '@mui/material';
 import { usePalette } from '@hooks/usePalette.jsx';
-import { useFlagQuery } from '@api/queries/useFlagQuery.jsx';
-import { ReactComponent as FlagFallback } from '@assets/country-flag-fallback.svg';
+import { ReactComponent as FlagFallback } from '@assets/flag-fallback.svg';
 
-export const Flag = ({ currencyCode, useBigFlag = false }) => {
+export const FlagIcon = ({
+	flagPending,
+	flag,
+	currencyCode,
+	useBigFlag = false
+}) => {
 	const { black50, whiteMain, navyMain } = usePalette();
-	const { flag, flagPending } = useFlagQuery(currencyCode);
 	const flagBackgroundColor = !flag ? navyMain : black50;
 
 	return (
@@ -54,7 +57,9 @@ export const Flag = ({ currencyCode, useBigFlag = false }) => {
 	);
 };
 
-Flag.propTypes = {
+FlagIcon.propTypes = {
+	flagPending: bool.isRequired,
+	flag: string,
 	currencyCode: string,
 	useBigFlag: bool,
 };

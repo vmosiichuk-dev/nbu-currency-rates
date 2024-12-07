@@ -3,7 +3,7 @@ import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider as Provider } from '@mui/material/styles';
 
 import { overrideCalendarStyles } from '@theme/overrideCalendarStyles.js';
-import { overrideInputStyles } from "@theme/overrideInputStyles.js";
+import { overrideInputStyles } from '@theme/overrideInputStyles.js';
 
 const mainTheme = createTheme({
 	...createTheme(),
@@ -11,7 +11,7 @@ const mainTheme = createTheme({
 		custom: {
 			green: {
 				main: '#1dc690',
-				dark: '#158d63',
+				dark: '#228b22',
 				light: '#0ea295',
 			},
 			navy: {
@@ -25,6 +25,10 @@ const mainTheme = createTheme({
 				200: '#a4a49d',
 				100: '#d9d4d4',
 				50: '#eaeae0',
+				disabled: 'rgba(0, 0, 0, 0.26)',
+			},
+			red: {
+				main: '#b22222db',
 			},
 			white: {
 				main: '#ffffff',

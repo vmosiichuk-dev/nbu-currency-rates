@@ -3,7 +3,7 @@ import { useBreakpoints } from '@hooks/useBreakpoints.jsx';
 import { TableContainer, Stack, Box, Typography } from '@mui/material';
 import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
 
-export const TablePlaceholder = ({ type, textFirstLine, textSecondLine }) => {
+export const RateTableStatus = ({ type, textFirstLine, textSecondLine }) => {
 	const { isMediaLG } = useBreakpoints();
 
 	return (
@@ -14,8 +14,8 @@ export const TablePlaceholder = ({ type, textFirstLine, textSecondLine }) => {
 			sx={{
 				mt: 'auto',
 				height: '85%',
-				width: { xs: '100dvw', lg: '732px' },
-				minWidth: { xs: '100dvw', lg: '732px' },
+				width: { xs: '100dvw', lg: '733px' },
+				minWidth: { xs: '100dvw', lg: '733px' },
 				padding: { xs: '16px 24px', lg: '24px' },
 			}}
 		>
@@ -37,7 +37,7 @@ export const TablePlaceholder = ({ type, textFirstLine, textSecondLine }) => {
 	);
 };
 
-TablePlaceholder.propTypes = {
+RateTableStatus.propTypes = {
 	type: oneOf(['error']).isRequired,
 	textFirstLine: string.isRequired,
 	textSecondLine: string,

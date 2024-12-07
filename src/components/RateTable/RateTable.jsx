@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { object, bool } from 'prop-types';
+import { useState, useEffect, useRef } from 'react';
+import { useBreakpoints } from '@hooks/useBreakpoints.jsx';
+import { useRatesQuery } from '@api/useRatesQuery.jsx';
 import { useDateSearchParams } from '@hooks/useDateSearchParams.jsx';
 import { RateTableItem } from './RateTableItem.jsx';
-import { useLocation } from 'react-router-dom';
-import { useBreakpoints } from '@hooks/useBreakpoints.jsx';
-import { useRatesQuery } from '@api/queries/useRatesQuery.jsx';
 
 import {
 	TableContainer,
@@ -19,10 +19,12 @@ import {
 	Typography,
 } from '@mui/material';
 
-export const RateTable = () => {
+export const RateTable = ({ customRates, hideExtraColumns = false }) => {
+	const tableContainerRef = useRef(null);
 	const { isMediaLG, isMediaSM } = useBreakpoints();
-	const location = useLocation();
-	const isSearch = location.pathname === '/search';
+
+	const [page, setPage] = useState(0);
+	const [rowsPerPage, setRowsPerPage] = useState(10);
 
 	const {
 		rates,
@@ -33,40 +35,73 @@ export const RateTable = () => {
 
 	const todayRatesQuery = useRatesQuery(todayDate);
 	const todayRates = todayRatesQuery?.rates;
+
 	const todayRatesByCC = todayRates?.reduce((acc, rate) => {
 		acc[rate.cc] = rate;
 		return acc;
 	}, {});
 
-	const [page, setPage] = useState(0);
 	const handlePageChange = (_, newPage) => setPage(newPage);
 
-	const rowsPerPage = 10;
-	const ratesWithPagination = rates?.slice(
+	const customRatesArray = customRates && Object.values(customRates);
+	const ratesToMap = customRatesArray || rates || [];
+
+	// const rowsPerPage = isMediaLG ? 10 : 6;
+	const ratesWithPagination = ratesToMap?.slice(
 		page * rowsPerPage,
 		page * rowsPerPage + rowsPerPage
 	);
 
-	const missingRowsCount = Math.max(
-		0,
-		rowsPerPage - (ratesWithPagination?.length || 0)
-	);
+	const missingRowsCount = Math
+		.max(0, rowsPerPage - (ratesWithPagination?.length || 0));
+
 	const rowHeight = isMediaLG ? 66 : 64;
 	const emptyHeight = rowHeight * missingRowsCount;
 
+	console.log({ ratesWithPagination, missingRowsCount, emptyHeight });
+
+	useEffect(() => {
+		const adjustRowsPerPage = () => {
+			if (!tableContainerRef.current) return;
+			const containerHeight = tableContainerRef.current.clientHeight;
+
+			const headerHeight = 64;
+			const paginationHeight = 52;
+			const reservedHeight = headerHeight + paginationHeight;
+
+			const availableHeight = containerHeight - reservedHeight;
+			const calculatedRows = Math.floor(availableHeight / rowHeight);
+
+			console.log({availableHeight, rowHeight, calculatedRows})
+
+			setRowsPerPage(Math.max(4, calculatedRows));
+		};
+
+		window.addEventListener('resize', adjustRowsPerPage);
+		adjustRowsPerPage();
+
+		return () => window.removeEventListener('resize', adjustRowsPerPage);
+	}, [rowHeight]);
+
 	return (
 		<TableContainer
+			ref={tableContainerRef}
 			component={Stack}
 			alignItems="center"
 			sx={{
 				height: '100%',
 				overflowX: 'hidden',
-				width: { xs: '100dvw', lg: '732px' },
-				minWidth: { xs: '100dvw', lg: '732px' },
+				width: { xs: '100dvw', lg: '733px' },
+				maxWidth: { xs: '100dvw', lg: '733px' },
 				padding: { xs: '16px 24px', lg: '24px' },
 			}}
 		>
-			<Table sx={{ mt: ratesPending ? 0 : 'auto' }}>
+			<Table
+				sx={{
+					mt: ratesPending ? 0 : 'auto',
+					maxWidth: { xs: '100dvw', lg: '733px' },
+				}}
+			>
 				<TableHead sx={{ padding: '0 16px 12px' }}>
 					<TableRow>
 						<TableCell>
@@ -74,7 +109,7 @@ export const RateTable = () => {
 								Валюта
 							</Typography>
 						</TableCell>
-						{ratesDiffer && isSearch && !isMediaSM ? (
+						{(customRates || ratesDiffer) && !hideExtraColumns && !isMediaSM ? (
 							<>
 								<TableCell>
 									<Typography align="center" variant="tableCellBold">
@@ -83,7 +118,7 @@ export const RateTable = () => {
 								</TableCell>
 								<TableCell>
 									<Typography align="center" variant="tableCellBold">
-										Різниця
+										{customRates ? 'Критерій' : 'Різниця'}
 									</Typography>
 								</TableCell>
 							</>
@@ -107,7 +142,7 @@ export const RateTable = () => {
 										rate={rate}
 										todayRate={ratesDiffer ? todayRate : null}
 										rateDifference={rateDifference}
-										isSearch={isSearch}
+										hideExtraColumns={hideExtraColumns}
 									/>
 								)
 							})}
@@ -119,15 +154,21 @@ export const RateTable = () => {
 				</TableBody>
 			</Table>
 			{!ratesPending ? (
-				<TablePagination
-					component={Box}
-					count={rates?.length || 0}
-					rowsPerPage={rowsPerPage}
-					rowsPerPageOptions={[rowsPerPage]}
-					page={page}
-					onPageChange={handlePageChange}
-					sx={{ mt: { xs: 3, lg: 'auto' } }}
-				/>
+				<>
+					{ratesToMap.length > rowsPerPage ? (
+						<TablePagination
+							component={Box}
+							count={ratesToMap.length || 0}
+							rowsPerPage={rowsPerPage}
+							rowsPerPageOptions={[rowsPerPage]}
+							page={page}
+							onPageChange={handlePageChange}
+							sx={{ mt: { xs: 3, lg: 'auto' } }}
+						/>
+					) : (
+						<Box sx={{ height: '52px', mt: 'auto' }}/>
+					)}
+				</>
 			) : (
 				<Skeleton
 					width="100%"
@@ -140,4 +181,9 @@ export const RateTable = () => {
 			)}
 		</TableContainer>
 	);
+};
+
+RateTable.propTypes = {
+	customRates: object,
+	hideExtraColumns: bool,
 };

@@ -6,7 +6,7 @@ import { Box, Stack } from '@mui/material';
 export const MainLayout = ({ children }) => {
 	const { isMediaLG } = useBreakpoints();
 	const columnA = `minmax(${isMediaLG ? 225 : 80}px, 300px)`;
-	const columnB = 'minmax(732px, 1fr)';
+	const columnB = 'minmax(733px, 1fr)';
 
 	return (
 		<Box

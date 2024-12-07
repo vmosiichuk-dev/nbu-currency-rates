@@ -1,5 +1,5 @@
 import { useTheme } from '@mui/material';
-import { capitalize } from "@utils/capitalize.js";
+import { capitalize } from '@utils/capitalize.js';
 
 export const usePalette = () => {
 	const paletteColors = {};

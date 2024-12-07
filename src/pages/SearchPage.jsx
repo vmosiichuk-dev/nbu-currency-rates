@@ -11,8 +11,8 @@ import { Stack } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-import { SearchDatePicker } from '@components/SearchDatePicker/SearchDatePicker.jsx';
-import { TablePlaceholder } from '@components/TablePlaceholder/TablePlaceholder.jsx';
+import { SearchDatePicker } from '@UI/SearchDatePicker/SearchDatePicker.jsx';
+import { RateTableStatus } from '@components/RateTable/RateTableStatus.jsx';
 import { RateTable } from '@components/RateTable/RateTable.jsx';
 
 export const SearchPage = () => {
@@ -82,7 +82,7 @@ export const SearchPage = () => {
 					)}
 				</Formik>
 				{isInvalidDate ? (
-					<TablePlaceholder
+					<RateTableStatus
 						type="error"
 						textFirstLine="Неправильний формат дати"
 						textSecondLine="Оберіть дату ще раз"

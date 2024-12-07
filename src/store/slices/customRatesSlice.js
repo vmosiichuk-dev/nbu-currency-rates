@@ -6,12 +6,15 @@ const customRatesSlice = createSlice({
 	reducers: {
 		updateCustomRates(state, action) {
 			const { currencyCode, currencyData } = action.payload;
-			
-			if (state[currencyCode]) {
-				state[currencyCode].customRate = currencyData?.customRate;
-			} else {
-				state[currencyCode] = currencyData;
-			}
+			state[currencyCode] = {
+				...state[currencyCode],
+				...currencyData,
+			};
+		},
+		toggleNotifyOnHigherRate(state, action) {
+			const { currencyCode } = action.payload;
+			const currentValue = state[currencyCode].notifyOnHigherRate || false;
+			state[currencyCode].notifyOnHigherRate = !currentValue;
 		},
 		deleteCustomRate(state, action) {
 			const { currencyCode } = action.payload;
@@ -22,7 +25,8 @@ const customRatesSlice = createSlice({
 
 export const {
 	updateCustomRates,
+	toggleNotifyOnHigherRate,
 	deleteCustomRate,
 } = customRatesSlice.actions;
 
-export default customRatesSlice.reducer;
+export const customRatesReducer = customRatesSlice.reducer;
