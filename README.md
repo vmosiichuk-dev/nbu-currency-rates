@@ -16,3 +16,11 @@
 - [ ] Custom Rates Page
 - [ ] Handling Error States
 - [ ] Testing and Final Adjustments
+
+## License
+
+This project is licensed under the [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html).
+
+You are free to use, modify, and distribute this software as long as you comply with the AGPL.
+If you modify this software and deploy it on a server or distribute it, you must release your modifications under the same license.
+For the full text of the license, see the `LICENSE` file in this repository.
