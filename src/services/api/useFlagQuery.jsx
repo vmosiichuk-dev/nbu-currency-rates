@@ -1,8 +1,8 @@
 import { apiRC } from '@api/api.js';
 import { useQuery } from '@tanstack/react-query';
-import { createEndpointWithParam } from '@utils/createEndpointWithParam.js';
-import { API_RC_GET_FLAG_URL, QUERY_CONFIG } from '@constants/api.js';
-import { CURRENCY_TO_INDEX_FLAG_MAP, CURRENCY_TO_SKIP } from '@constants/flags.js';
+import { createEndpointWithParam } from '@utils/createEndpointWithParam';
+import { API_RC_GET_FLAG_URL, QUERY_CONFIG } from '@constants/api';
+import { CURRENCY_TO_INDEX_FLAG_MAP, CURRENCY_TO_SKIP } from '@constants/currencies';
 
 export const useFlagQuery = (currencyCode) => {
 	const countryIndex = CURRENCY_TO_INDEX_FLAG_MAP[currencyCode] ?? 0;
@@ -25,8 +25,9 @@ export const useFlagQuery = (currencyCode) => {
 	});
 
 	return {
-		flag:
-			data?.[countryIndex]?.flags?.png ?? null,
+		flag: currencyCode === 'EUR'
+			? 'https://flagcdn.com/w320/eu.png'
+			: data?.[countryIndex]?.flags?.png ?? null,
 		flagPending:
 			isPending && !CURRENCY_TO_SKIP.includes(currencyCode),
 		currencySymbol:

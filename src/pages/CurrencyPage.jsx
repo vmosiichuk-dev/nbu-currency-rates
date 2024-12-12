@@ -1,22 +1,23 @@
 import * as Yup from 'yup';
-import { usePalette } from '@hooks/usePalette.jsx';
-import { useBreakpoints } from '@hooks/useBreakpoints.jsx';
-import { useParams /*, useNavigate */ } from 'react-router-dom';
+import { usePalette } from '@hooks/usePalette';
+import { useBreakpoints } from '@hooks/useBreakpoints';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+// import { useNavigateTransition } from '@hooks/useNavigateTransition';
 
-import { useCurrencyQuery } from '@api/useCurrencyQuery.jsx';
-import { useFlagQuery } from '@api/useFlagQuery.jsx';
-import { updateCustomRates, deleteCustomRate } from '@slices/customRatesSlice.js';
+import { useCurrencyQuery } from '@api/useCurrencyQuery';
+import { useFlagQuery } from '@api/useFlagQuery';
+import { updateCustomRates, deleteCustomRate } from '@slices/customRatesSlice';
 
 import { Form, Formik } from 'formik';
 import { Stack, Skeleton, TextField, Button, Box } from '@mui/material';
-import { FlagIcon } from '@UI/FlagIcon/FlagIcon.jsx';
-import { CurrencyData } from '@UI/CurrencyData/CurrencyData.jsx';
+import { FlagIcon } from '@UI/FlagIcon/FlagIcon';
+import { CurrencyData } from '@UI/CurrencyData/CurrencyData';
 import ClearIcon from '@mui/icons-material/Clear';
 
 export const CurrencyPage = () => {
 	const dispatch = useDispatch();
-	// const navigate = useNavigate();
+	// const navigate = useNavigateTransition();
 	const { isMediaMD } = useBreakpoints();
 	const { currencyCode } = useParams();
 
@@ -81,7 +82,7 @@ export const CurrencyPage = () => {
 			alignItems="center"
 			sx={{
 				height: '100dvh',
-				mb: { xs: 20, lg: 10 },
+				mb: { xs: 20, md: 10 },
 				mx: 'auto',
 			}}
 		>

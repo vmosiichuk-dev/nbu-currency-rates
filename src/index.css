@@ -10,4 +10,18 @@
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	--view-transition-name: fade;
+}
+
+.view-transition-name-fade {
+	animation: fade 1s ease-in-out;
+}
+
+@keyframes fade {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }

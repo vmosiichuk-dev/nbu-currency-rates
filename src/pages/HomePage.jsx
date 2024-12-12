@@ -1,14 +1,5 @@
-import { Stack } from '@mui/material';
-import { RateTable } from '@components/RateTable/RateTable.jsx'
+import { RatesWidget } from '@components/RatesWidget/RatesWidget';
 
 export const HomePage = () => (
-	<>
-		<Stack
-			alignItems="flex-end"
-			direction="row"
-			sx={{ height: '100%', m: '0 auto', pt: '40px' }}
-		>
-			<RateTable hideExtraColumns/>
-		</Stack>
-	</>
+	<RatesWidget hideExtraColumns />
 );

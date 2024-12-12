@@ -8,7 +8,7 @@ import { setEmail } from '@slices/emailSlice.js';
 import * as Yup from 'yup';
 import { Form, Formik } from "formik";
 import { Button, Stack, TextField } from '@mui/material';
-import { RateTable } from '@components/RateTable/RateTable.jsx';
+import { RateList } from '@components/RateList/RateList.jsx';
 
 export const CustomRatesPage = () => {
 	const dispatch = useDispatch();
@@ -96,7 +96,7 @@ console.log(email)
 									}}
 								>
 									<Stack
-										spacing={{ xs: 1, lg: 3 }}
+										spacing={{ xs: 1, md: 3 }}
 										direction={isMediaLG ? 'row' : 'column'}
 										sx={{ minWidth: isMediaLG ? '550px' : '100%' }}
 									>
@@ -163,7 +163,7 @@ console.log(email)
 						)
 					}}
 				</Formik>
-				<RateTable customRates={customRates} />
+				<RateList customRates={customRates} />
 			</Stack>
 		</>
 	);

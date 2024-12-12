@@ -8,7 +8,8 @@ export const CURRENCY_TO_INDEX_FLAG_MAP = {
 	GBP: 4,
 	AUD: 5,
 	USD: 6,
-	EUR: 11,
 };
 
 export const CURRENCY_TO_SKIP = ['XDR', 'XAU',	'XAG', 'XPT', 'XPD'];
+
+export const TOP_CURRENCIES = ['USD', 'EUR', 'PLN', 'GBP', 'CAD'];

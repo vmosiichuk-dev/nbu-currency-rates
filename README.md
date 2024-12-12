@@ -13,7 +13,9 @@
 - [x] Individual Currency Page
 - [x] API Integration for Individual Currency Data
 - [x] Redux State for Custom Rates Page
-- [ ] Custom Rates Page
+- [x] Custom Rates Page
+- [x] Extra emailjs integration for custom rates notifications
+- [ ] Re-design the app to a dashboard with widgets
 - [ ] Handling Error States
 - [ ] Testing and Final Adjustments
 

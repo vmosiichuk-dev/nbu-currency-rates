@@ -1,24 +1,24 @@
-import { ReactComponent as LinkHomeIcon } from '@assets/link-home.svg';
-import { ReactComponent as LinkSearchIcon } from '@assets/link-search.svg';
-import { ReactComponent as LinkCustomRatesIcon } from '@assets/link-custom-rates.svg';
+import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 
 export const HEADER_LINKS = {
 	home: {
-		title: 'Головна',
-		href: '/',
+		label: 'Головна',
+		to: '/',
 		key: 'home',
-		icon: LinkHomeIcon,
+		icon: SpaceDashboardIcon,
 	},
 	search: {
-		title: 'Пошук',
-		href: '/search',
+		label: 'Пошук',
+		to: '/search',
 		key: 'search',
-		icon: LinkSearchIcon,
+		icon: QueryStatsIcon,
 	},
 	currency: {
-		title: 'Змінені курси',
-		href: '/custom-rates',
+		label: 'Змінені курси',
+		to: '/custom-rates',
 		key: 'custom-rates',
-		icon: LinkCustomRatesIcon,
+		icon: CurrencyExchangeIcon,
 	},
 };

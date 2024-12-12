@@ -31,7 +31,7 @@ const mainTheme = createTheme({
 				main: '#b22222db',
 			},
 			white: {
-				main: '#ffffff',
+				main: '#efefef',
 			},
 			error: {
 				main: '#ff004d',
@@ -40,15 +40,25 @@ const mainTheme = createTheme({
 			success: {
 				main: '#17c614',
 			},
+			new: {
+				main: '#ececf5',
+				300: '#74757b',
+				bgLight: '#1e2226',
+				bg: '#171c21',
+				lime: '#cdfb7c',
+				violet: '#aa7cfb',
+				semiTransparent: 'rgba(255, 255, 255, 0.03)',
+				brightSemiTransparent: 'rgba(255, 255, 255, 0.3)',
+				nonTransparentBg: 'rgb(45, 45, 55)',
+			}
 		},
 	},
 	breakpoints: {
 		values: {
 			xs: 0,
-			sm: 360,
-			md: 705,
-			lg: 960,
-			xl: 1920,
+			sm: 430,
+			md: 1279,
+			lg: 1920,
 		},
 	},
 });
@@ -68,6 +78,11 @@ const theme = createTheme({
 				}
 				html, body {
 					font-family: 'Inter', system-ui, Helvetica, Arial, sans-serif;
+					background-color: ${mainTheme.palette.custom.new.bg};
+					color: ${mainTheme.palette.custom.white.main};
+				}
+				@view-transition {
+					navigation: none;
 				}
 			`,
 		},
@@ -80,8 +95,6 @@ const theme = createTheme({
 					documentTitle: 'h1',
 					title: 'h2',
 					subtitle: 'h3',
-					menuTitle: 'p',
-					menuTitleMobile: 'p',
 					tableCell: 'p',
 					tableCellBold: 'p',
 				},
@@ -111,47 +124,40 @@ const theme = createTheme({
 	},
 	typography: {
 		...mainTheme.typography,
-		fontSize: 16,
+		fontSize: 14,
 		documentTitle: {
 			fontWeight: 700,
-			fontSize: 24,
+			fontSize: 22,
 			[mainTheme.breakpoints.up('lg')]: {
-				fontSize: 32,
-			},
-		},
-		menuTitle: {
-			fontWeight: 700,
-			fontSize: 20,
-			[mainTheme.breakpoints.up('lg')]: {
-				fontSize: 26,
+				fontSize: 30,
 			},
 		},
 		title: {
-			fontWeight: 600,
-			fontSize: 20,
-			[mainTheme.breakpoints.up('lg')]: {
-				fontSize: 24,
-			},
-		},
-		subtitle: {
 			fontWeight: 600,
 			fontSize: 18,
 			[mainTheme.breakpoints.up('lg')]: {
 				fontSize: 22,
 			},
 		},
+		subtitle: {
+			fontWeight: 600,
+			fontSize: 16,
+			[mainTheme.breakpoints.up('lg')]: {
+				fontSize: 20,
+			},
+		},
 		tableCell: {
 			fontWeight: 400,
-			fontSize: 15,
+			fontSize: 13,
 			[mainTheme.breakpoints.up('lg')]: {
-				fontSize: 17,
+				fontSize: 15,
 			},
 		},
 		tableCellBold: {
 			fontWeight: 600,
-			fontSize: 15,
+			fontSize: 13,
 			[mainTheme.breakpoints.up('lg')]: {
-				fontSize: 17,
+				fontSize: 15,
 			},
 		},
 	},

@@ -13,7 +13,7 @@ export const useDateSearchParams = () => {
 	const apiDate = dayjsDate.format('YYYYMMDD');
 	const todayDate = dayjs().format('YYYYMMDD');
 
-	const { rates, ratesPending } = useRatesQuery(apiDate);
+	const { rates, topRates, ratesPending } = useRatesQuery(apiDate);
 	const ratesDiffer = rates && rates?.[0]?.exchangedate !== dayjs().format('DD.MM.YYYY');
 
 	const updateDate = (newDate) => {
@@ -33,6 +33,7 @@ export const useDateSearchParams = () => {
 		displayDate,
 		apiDate,
 		rates,
+		topRates,
 		ratesPending,
 		updateDate,
 		ratesDiffer,
