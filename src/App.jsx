@@ -11,7 +11,8 @@ function App() {
         const modifiedLocale = dayjs.Ls['uk'];
         const initialLocaleMonths = modifiedLocale.months;
 
-        modifiedLocale.months = (month) => capitalize(initialLocaleMonths(month));
+        modifiedLocale.months = (month) =>
+            capitalize(initialLocaleMonths(month));
         modifiedLocale.monthsShort = modifiedLocale.monthsShort.map(capitalize);
         modifiedLocale.weekdaysMin = modifiedLocale.weekdaysMin.map(capitalize);
 
@@ -21,11 +22,7 @@ function App() {
     modifyDayjsLocale();
     useHistoryTransitions();
 
-    return (
-        <>
-            {element}
-        </>
-    );
+    return <>{element}</>;
 }
 
 export default App;

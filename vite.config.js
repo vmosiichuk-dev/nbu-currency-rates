@@ -3,10 +3,7 @@ import react from '@vitejs/plugin-react-swc';
 import svgr from '@svgr/rollup';
 
 export default defineConfig({
-    plugins: [
-        react(),
-        svgr({ icon: true }),
-    ],
+    plugins: [react(), svgr({ icon: true })],
     resolve: {
         alias: {
             '@api': '/src/services/api',

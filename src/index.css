@@ -4,24 +4,24 @@
 @import '@fontsource/inter/700.css';
 
 :root {
-	font-family: 'Inter', sans-serif;
-	font-size: 16px;
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	--view-transition-name: fade;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    --view-transition-name: fade;
 }
 
 .view-transition-name-fade {
-	animation: fade 1s ease-in-out;
+    animation: fade 1s ease-in-out;
 }
 
 @keyframes fade {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
